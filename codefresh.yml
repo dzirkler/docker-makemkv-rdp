@@ -1,0 +1,30 @@
+version: '1.0'
+
+steps:
+
+   buildimage:
+      type: build
+      description: Build Docker Image
+      dockerfile: Dockerfile
+      image_name: dzirkler/makemkv
+      tag: latest-cf-build-candidate
+
+   push_image:
+      type: push
+      candidate: ${{buildimage}}
+      tag: v1.10.6
+      when:
+        branch:
+          only:
+            - master
+
+   push_image1:
+      type: push
+      candidate: ${{buildimage}}
+      tag: ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
+      when:
+        condition:
+            all:
+              masterBranch: '"${{CF_BRANCH}}" != "master"'
+              
+     
