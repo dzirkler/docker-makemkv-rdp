@@ -12,7 +12,7 @@ steps:
    push_image:
       type: push
       candidate: ${{buildimage}}
-      tag: v1.12.3
+      tag: v1.14.1
       when:
         branch:
           only:
